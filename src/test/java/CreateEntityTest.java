@@ -32,8 +32,17 @@ public class CreateEntityTest {
 
     @Test
     public void createEntity() {
-        driver.get("https://mobislenotes.com/app/");
+
+        // login
+        driver.get("https://mobislenotes.com/");
         driver.manage().window().setSize(new Dimension(928, 694));
+        driver.findElement(By.name("username")).click();
+        driver.findElement(By.name("username")).sendKeys("yajanah653@glenwoodave.com");
+        driver.findElement(By.name("password")).sendKeys("qwerty123");
+        driver.findElement(By.name("login")).click();
+
+
+        driver.findElement(By.xpath("//*[@id=\"todos\"]/ul/li[1]/a")).click();
         driver.findElement(By.cssSelector(".outline img")).click();
         driver.findElement(By.name("title")).sendKeys("Some text");
         driver.findElement(By.id("todos")).click();
