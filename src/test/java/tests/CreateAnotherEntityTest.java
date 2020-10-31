@@ -2,8 +2,7 @@ package tests;
 
 import base.TestBase;
 import dto.Account;
-import dto.Note;
-import org.openqa.selenium.By;
+import dto.Folder;
 
 public class CreateAnotherEntityTest extends TestBase {
     @Override
@@ -11,20 +10,13 @@ public class CreateAnotherEntityTest extends TestBase {
         // login
         Account testAccount = new Account("yajanah653@glenwoodave.com", "qwerty123");
 
-        resizeWindow(928, 694);
-        loginWith(testAccount);
+        app.window().resize(928, 694);
+        app.navigation().navigateTo("/");
+        app.login().authWith(testAccount);
 
         // entity creation
-        Note testNote = new Note("Another Sample Text");
-
-        navigateTo("/app");
-        createNoteWith(testNote);
-    }
-
-    private void createNoteWith(Note note) {
-        driver.findElement(By.xpath("//*[@id=\"todos\"]/ul/li[1]/a")).click();
-        driver.findElement(By.cssSelector(".outline img")).click();
-        driver.findElement(By.name("title")).sendKeys(note.getContent());
-        driver.findElement(By.id("todos")).click();
+        Folder testFolder = new Folder("Sample Folder");
+        app.navigation().navigateTo("/app");
+        app.folder().newWith(testFolder);
     }
 }

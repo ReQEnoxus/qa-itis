@@ -8,7 +8,8 @@ public class LoginTest extends TestBase {
     public void testCase() {
         Account testAccount = new Account("yajanah653@glenwoodave.com", "qwerty123");
 
-        resizeWindow(928, 694);
-        loginWith(testAccount);
+        app.window().resize(928, 694);
+        app.navigation().navigateTo("/");
+        app.login().authWith(testAccount);
     }
 }
