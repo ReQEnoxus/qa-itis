@@ -2,10 +2,9 @@ package tests;
 
 import base.TestBase;
 import dto.Account;
-import dto.Folder;
 import org.junit.Assert;
 
-public class CreateAnotherEntityTest extends TestBase {
+public class RenameEntityTest extends TestBase {
     @Override
     public void testCase() {
         // auth
@@ -15,13 +14,12 @@ public class CreateAnotherEntityTest extends TestBase {
         app.navigation().navigateTo("/");
         app.auth().authWith(testAccount);
 
-        // entity creation
-        Folder testFolder = new Folder("Sample Folder");
+        // rename
+        String testName = "New Name";
         app.navigation().navigateTo("/app");
-        app.folder().newWith(testFolder);
+        app.note().renameLastNoteWith(testName);
 
-        Folder createdFolder = app.folder().lastCreatedFolder();
-        Assert.assertEquals(testFolder.getName(), createdFolder.getName());
+        Assert.assertEquals(app.note().lastCreatedNote().getContent(), testName);
 
         app.auth().logout();
     }

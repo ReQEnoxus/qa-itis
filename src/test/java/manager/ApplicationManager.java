@@ -24,7 +24,7 @@ public class ApplicationManager {
     private WindowHelper window;
     private FolderHelper folder;
 
-    public ApplicationManager() {
+    private ApplicationManager() {
         driver = new FirefoxDriver();
         js = (JavascriptExecutor) driver;
         vars = new HashMap<>();
@@ -34,6 +34,15 @@ public class ApplicationManager {
         note = new NoteHelper(this);
         window = new WindowHelper(this);
         folder = new FolderHelper(this);
+    }
+
+    private static ThreadLocal<ApplicationManager> instance = new ThreadLocal<>();
+
+    public static ApplicationManager getInstance() {
+        if (instance.get() == null) {
+            instance.set(new ApplicationManager());
+        }
+        return instance.get();
     }
 
     public void terminate() {
@@ -48,7 +57,7 @@ public class ApplicationManager {
         return driver;
     }
 
-    public LoginHelper login() {
+    public LoginHelper auth() {
         return login;
     }
 
