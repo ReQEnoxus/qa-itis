@@ -17,7 +17,7 @@ public class NoteHelper extends HelperBase {
     }
 
     public Note lastCreatedNote() {
-        String content = manager.driver().findElement(By.name("title")).getAttribute("value");
+        String content = manager.driver().findElement(By.xpath("/html/body/div[3]/div[1]/div/ul/li[1]/a")).getText();
         return new Note(content);
     }
 
