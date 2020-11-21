@@ -1,28 +1,21 @@
 package tests;
 
-import base.TestBase;
-import dto.Account;
+import base.AuthBase;
 import dto.Folder;
 import generator.DataGenerator;
 import org.junit.Assert;
 
-public class CreateAnotherEntityTest extends TestBase {
-
-    private Account testAccount;
+public class CreateAnotherEntityTest extends AuthBase {
     private Folder testFolder;
 
     @Override
     public void additionalSetup() {
-        testAccount = DataGenerator.readAccount("account.json");
         testFolder = DataGenerator.readFolder("folder.json");
     }
 
     @Override
     public void testCase() {
-        // auth
-        app.window().resize(928, 694);
-        app.navigation().navigateTo("/");
-        app.auth().authWith(testAccount);
+        super.testCase();
 
         // entity creation
         app.navigation().navigateTo("/app");
@@ -30,7 +23,5 @@ public class CreateAnotherEntityTest extends TestBase {
 
         Folder createdFolder = app.folder().lastCreatedFolder();
         Assert.assertEquals(testFolder.getName(), createdFolder.getName());
-
-        app.auth().logout();
     }
 }

@@ -5,7 +5,7 @@ import dto.Account;
 import generator.DataGenerator;
 import org.junit.Assert;
 
-public class LoginTest extends TestBase {
+public class CorrectLoginTest extends TestBase {
     private Account testAccount;
 
     @Override
@@ -15,13 +15,15 @@ public class LoginTest extends TestBase {
 
     @Override
     public void testCase() {
-        app.window().resize(928, 694);
-        app.navigation().navigateTo("/");
-        app.auth().authWith(testAccount);
+        if (app.auth().isLoggedIn()) {
+            app.auth().logout();
+        }
+        while (!app.auth().isLoggedIn()) {
+            app.navigation().navigateTo("/");
+            app.auth().authWith(testAccount);
+        }
         app.navigation().navigateTo("/app");
 
         Assert.assertEquals(testAccount.getEmail(), app.auth().authenticatedEmail());
-
-        app.auth().logout();
     }
 }

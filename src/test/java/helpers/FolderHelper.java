@@ -13,9 +13,11 @@ public class FolderHelper extends HelperBase {
     }
 
     public void newWith(Folder folder) {
-        manager.driver().findElement(By.xpath("//*[@id=\"ttbfolder\"]")).click();
+        manager.driver().findElement(By.cssSelector("#ttbfolder p")).click();
+        manager.driver().findElement(By.cssSelector("#ttbfolder p")).click();
         manager.driver().findElement(By.name("new-folder-name")).sendKeys(folder.getName());
         manager.driver().findElement(By.name("new-folder-name")).sendKeys(Keys.ENTER);
+
     }
 
     public Folder lastCreatedFolder() {

@@ -1,27 +1,21 @@
 package tests;
 
-import base.TestBase;
-import dto.Account;
+import base.AuthBase;
 import dto.Note;
 import generator.DataGenerator;
 import org.junit.Assert;
 
-public class RenameEntityTest extends TestBase {
-    private Account testAccount;
+public class RenameEntityTest extends AuthBase {
     private Note testNote;
 
     @Override
     public void additionalSetup() {
-        testAccount = DataGenerator.readAccount("account.json");
         testNote = DataGenerator.readNote("otherNote.json");
     }
 
     @Override
     public void testCase() {
-        // auth
-        app.window().resize(928, 694);
-        app.navigation().navigateTo("/");
-        app.auth().authWith(testAccount);
+        super.testCase();
 
         // rename
         String testName = testNote.getContent();
@@ -29,7 +23,5 @@ public class RenameEntityTest extends TestBase {
         app.note().renameLastNoteWith(testName);
 
         Assert.assertEquals(app.note().lastCreatedNote().getContent(), testName);
-
-        app.auth().logout();
     }
 }
